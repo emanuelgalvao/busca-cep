@@ -2,6 +2,7 @@ package com.emanuelgalvao.buscacep.data
 
 import com.emanuelgalvao.buscacep.callback.CepCallback
 import com.emanuelgalvao.buscacep.network.CepService
+import com.emanuelgalvao.buscacep.status.ErrorStatus
 import com.emanuelgalvao.buscacep.status.ValidationStatus
 import com.emanuelgalvao.buscacep.utils.CepHandler
 import com.emanuelgalvao.buscacep.utils.Validator
@@ -28,9 +29,9 @@ class CepDataSource(val cepApiService: CepService): CepRepository {
         return if (apiResponse.isSuccessful) {
             apiResponse.body()?.let {
                 CepCallback.Success(it)
-            } ?: CepCallback.Error()
+            } ?: CepCallback.Error(ErrorStatus.INVALID_CEP)
         } else {
-            CepCallback.Error()
+            CepCallback.Error(ErrorStatus.SERVER_ERROR)
         }
     }
 }
