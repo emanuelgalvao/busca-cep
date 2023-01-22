@@ -11,7 +11,7 @@ class ValidatorTest {
 
    @Before
    fun setup() {
-       validator = Validator()
+       validator = Validator.instance
    }
 
     @Test

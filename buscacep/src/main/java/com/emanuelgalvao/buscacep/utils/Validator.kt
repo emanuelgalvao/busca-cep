@@ -2,7 +2,7 @@ package com.emanuelgalvao.buscacep.utils
 
 import com.emanuelgalvao.buscacep.status.ValidationStatus
 
-class Validator {
+class Validator private constructor() {
 
     companion object {
 

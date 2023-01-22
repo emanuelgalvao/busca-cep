@@ -3,16 +3,19 @@ package com.emanuelgalvao.buscacep.data
 import com.emanuelgalvao.buscacep.callback.CepCallback
 import com.emanuelgalvao.buscacep.network.CepService
 import com.emanuelgalvao.buscacep.status.ValidationStatus
+import com.emanuelgalvao.buscacep.utils.CepHandler
 import com.emanuelgalvao.buscacep.utils.Validator
 
 class CepDataSource(val cepApiService: CepService): CepRepository {
 
     override suspend fun searchCep(cep: String): CepCallback {
 
-        val validationStatus = Validator.instance.validateCep(cep)
+        val cepFormatted = CepHandler.instance.formatCepToCorrectFormat(cep)
+
+        val validationStatus = Validator.instance.validateCep(cepFormatted)
 
         return if (validationStatus == ValidationStatus.CEP_VALID) {
-            doSearchRequest(cep)
+            doSearchRequest(cepFormatted)
         } else {
             CepCallback.Validation(validationStatus)
         }
