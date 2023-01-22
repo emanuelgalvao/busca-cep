@@ -7,7 +7,7 @@ class RetrofitClient {
 
     companion object {
 
-        private const val BASE_URL = "https://viacep.com.br/ws"
+        private const val BASE_URL = "https://viacep.com.br/ws/"
 
         private lateinit var client: Retrofit
 

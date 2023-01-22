@@ -1,10 +1,13 @@
 package com.emanuelgalvao.buscacep.network
 
 import com.emanuelgalvao.buscacep.model.CepModel
-import retrofit2.Call
+import com.emanuelgalvao.buscacep.model.CepResponse
 import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface CepService {
 
-    suspend fun searchCep(cep: String) : Response<CepModel>
+    @GET("{cep}/json/")
+    suspend fun searchCep(@Path(value = "cep") cep: String) : Response<CepResponse>
 }

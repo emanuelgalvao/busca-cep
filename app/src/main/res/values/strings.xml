@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">BuscaCep</string>
+
+    <string name="MENU_TITLE_INFO">Info</string>
+
+    <string name="HELP_INFO">Para realizar testes utilize os CEP\'s abaixo:\n\nSUCESSO:\n\n01001000 - CEP válido\n\nERRO: \n\n99999999 - CEP inexistente\n\nVALIDAÇÃO:\n\n\"\" - CEP Não pode ser vazio\n\n0100100D - CEP com letras\n\n01001 - CEP com tamanho incorreto</string>
+
+    <string name="TITLE_INFO">Informações!</string>
+    <string name="TITLE_SUCCESS">Sucesso!</string>
+    <string name="TITLE_ERROR">Erro!</string>
+    <string name="TITLE_VALIDATION">Erro de Validação!</string>
+    <string name="CLOSE">Fechar</string>
+    <string name="CEP_SUCCESS_DETAILS">CEP: %s\nLogradouro: %s\nComplemento: %s\nBairro: %s\nLocalidade: %s\nUF: %s\nIBGE: %s\nGIA: %s\nDDD: %s\nSIAFI: %s</string>
+
+    <string name="SEARCH_DESCRIPTION">Digite abaixo o CEP que deseja buscar. \nCaso precise de CEP\'s que retornem erros clique no ícone de informação na barra superior do App.</string>
+    <string name="CEP_PLACEHOLDER">Informe o CEP:</string>
+    <string name="SEARCH">Buscar</string>
+
 </resources>
