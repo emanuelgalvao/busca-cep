@@ -45,6 +45,8 @@ Esse método irá retornar um objeto do tipo `CepCallback`, que pode representar
 
 **IMPORTANTE: Esse método deve ser chamado em um escopo de Coroutine devido a utilizar uma `suspend fun` para fazer a requisição.**
 
+**Você pode verificar um exemplo de implementação no modulo [app](https://github.com/emanuelgalvao/busca-cep/tree/master/app) desse projeto, fique a vontade para clonar e rodar a aplicação.**
+
 Exemplo de utilização:
 
 ```kotlin
