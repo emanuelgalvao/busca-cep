@@ -1,6 +1,6 @@
 package com.emanuelgalvao.buscacep.utils
 
-class CepHandler private constructor() {
+internal class CepHandler private constructor() {
 
     companion object {
         val instance: CepHandler by lazy {

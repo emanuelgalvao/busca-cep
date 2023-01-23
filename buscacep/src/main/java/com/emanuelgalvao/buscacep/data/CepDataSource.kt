@@ -3,12 +3,12 @@ package com.emanuelgalvao.buscacep.data
 import com.emanuelgalvao.buscacep.callback.CepCallback
 import com.emanuelgalvao.buscacep.model.CepModel
 import com.emanuelgalvao.buscacep.network.CepService
-import com.emanuelgalvao.buscacep.status.ErrorStatus
-import com.emanuelgalvao.buscacep.status.ValidationStatus
+import com.emanuelgalvao.buscacep.status.CepErrorStatus
+import com.emanuelgalvao.buscacep.status.CepValidationStatus
 import com.emanuelgalvao.buscacep.utils.CepHandler
 import com.emanuelgalvao.buscacep.utils.Validator
 
-class CepDataSource(private val cepApiService: CepService): CepRepository {
+internal class CepDataSource(private val cepApiService: CepService): CepRepository {
 
     override suspend fun searchCep(cep: String): CepCallback {
 
@@ -16,7 +16,7 @@ class CepDataSource(private val cepApiService: CepService): CepRepository {
 
         val validationStatus = Validator.instance.validateCep(cepFormatted)
 
-        return if (validationStatus == ValidationStatus.CEP_VALID) {
+        return if (validationStatus == CepValidationStatus.CEP_VALID) {
             doSearchRequest(cepFormatted)
         } else {
             CepCallback.Validation(validationStatus)
@@ -30,7 +30,7 @@ class CepDataSource(private val cepApiService: CepService): CepRepository {
         return if (apiResponse.isSuccessful) {
             apiResponse.body()?.let { cepResponse ->
                 if (cepResponse.erro) {
-                    CepCallback.Error(ErrorStatus.INVALID_CEP)
+                    CepCallback.Error(CepErrorStatus.INVALID_CEP)
                 } else {
                     val cepModel = CepModel(
                         bairro = cepResponse.bairro,
@@ -46,9 +46,9 @@ class CepDataSource(private val cepApiService: CepService): CepRepository {
                     )
                     CepCallback.Success(cepModel)
                 }
-            } ?: CepCallback.Error(ErrorStatus.SERVER_ERROR)
+            } ?: CepCallback.Error(CepErrorStatus.SERVER_ERROR)
         } else {
-            CepCallback.Error(ErrorStatus.SERVER_ERROR)
+            CepCallback.Error(CepErrorStatus.SERVER_ERROR)
         }
     }
 }

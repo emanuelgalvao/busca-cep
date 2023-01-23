@@ -1,4 +1,4 @@
-package com.emanuelgalvao.buscacep
+package com.emanuelgalvao.buscacep.ui
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.emanuelgalvao.buscacep.R
 import com.emanuelgalvao.buscacep.databinding.ActivityMainBinding
 import com.emanuelgalvao.buscacep.viewmodel.MainViewModel
 

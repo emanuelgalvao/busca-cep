@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.emanuelgalvao.buscacep.SearchCep
 import com.emanuelgalvao.buscacep.callback.CepCallback
 import com.emanuelgalvao.buscacep.model.CepModel
-import com.emanuelgalvao.buscacep.status.ErrorStatus
-import com.emanuelgalvao.buscacep.status.ValidationStatus
+import com.emanuelgalvao.buscacep.status.CepErrorStatus
+import com.emanuelgalvao.buscacep.status.CepValidationStatus
 import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
@@ -21,12 +21,12 @@ class MainViewModel: ViewModel() {
     val success: LiveData<CepModel>
         get() = _success
 
-    private val _error: MutableLiveData<ErrorStatus> = MutableLiveData()
-    val error: LiveData<ErrorStatus>
+    private val _error: MutableLiveData<CepErrorStatus> = MutableLiveData()
+    val error: LiveData<CepErrorStatus>
         get() = _error
 
-    private val _validation: MutableLiveData<ValidationStatus> = MutableLiveData()
-    val validation: LiveData<ValidationStatus>
+    private val _validation: MutableLiveData<CepValidationStatus> = MutableLiveData()
+    val validation: LiveData<CepValidationStatus>
         get() = _validation
 
     fun searchCep(cep: String) {
@@ -39,10 +39,10 @@ class MainViewModel: ViewModel() {
                    handleSuccess(callback.cepModel)
                }
                is CepCallback.Error -> {
-                   handleError(callback.errorStatus)
+                   handleError(callback.cepErrorStatus)
                }
                is CepCallback.Validation -> {
-                   handleValidation(callback.validationStatus)
+                   handleValidation(callback.cepValidationStatus)
                }
            }
            _requesting.postValue(false)
@@ -53,11 +53,11 @@ class MainViewModel: ViewModel() {
         _success.postValue(cepModel)
     }
 
-    private fun handleError(errorStatus: ErrorStatus) {
-        _error.postValue(errorStatus)
+    private fun handleError(cepErrorStatus: CepErrorStatus) {
+        _error.postValue(cepErrorStatus)
     }
 
-    private fun handleValidation(validationStatus: ValidationStatus) {
-        _validation.postValue(validationStatus)
+    private fun handleValidation(cepValidationStatus: CepValidationStatus) {
+        _validation.postValue(cepValidationStatus)
     }
 }

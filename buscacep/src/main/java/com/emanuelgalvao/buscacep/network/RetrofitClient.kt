@@ -3,7 +3,7 @@ package com.emanuelgalvao.buscacep.network
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitClient {
+internal class RetrofitClient {
 
     companion object {
 

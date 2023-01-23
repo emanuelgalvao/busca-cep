@@ -1,6 +1,6 @@
 package com.emanuelgalvao.buscacep.utils
 
-import com.emanuelgalvao.buscacep.status.ValidationStatus
+import com.emanuelgalvao.buscacep.status.CepValidationStatus
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -71,25 +71,25 @@ class ValidatorTest {
     @Test
     fun `when cep is empty, the cep validation should return status empty`() {
         val cep = ""
-        Assert.assertEquals(ValidationStatus.CEP_EMPTY, validator.validateCep(cep))
+        Assert.assertEquals(CepValidationStatus.CEP_EMPTY, validator.validateCep(cep))
     }
 
     @Test
     fun `when cep length is different than 8, the cep validation should return status incorrect length`() {
         val cep = "010010001"
-        Assert.assertEquals(ValidationStatus.CEP_INCORRECT_LENGTH, validator.validateCep(cep))
+        Assert.assertEquals(CepValidationStatus.CEP_INCORRECT_LENGTH, validator.validateCep(cep))
     }
 
     @Test
     fun `when cep contains letters, the cep validation should return status contains letters`() {
         val cep = "0100100A"
-        Assert.assertEquals(ValidationStatus.CEP_CONTAINS_LETTERS, validator.validateCep(cep))
+        Assert.assertEquals(CepValidationStatus.CEP_CONTAINS_LETTERS, validator.validateCep(cep))
     }
 
     @Test
     fun `when cep is valid, the cep validation should return status valid`() {
         val cep = "01001000"
-        Assert.assertEquals(ValidationStatus.CEP_VALID, validator.validateCep(cep))
+        Assert.assertEquals(CepValidationStatus.CEP_VALID, validator.validateCep(cep))
     }
 
 }

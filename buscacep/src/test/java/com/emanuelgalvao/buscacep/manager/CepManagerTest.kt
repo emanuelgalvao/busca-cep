@@ -3,8 +3,8 @@ package com.emanuelgalvao.buscacep.manager
 import com.emanuelgalvao.buscacep.callback.CepCallback
 import com.emanuelgalvao.buscacep.data.CepRepository
 import com.emanuelgalvao.buscacep.model.CepModel
-import com.emanuelgalvao.buscacep.status.ErrorStatus
-import com.emanuelgalvao.buscacep.status.ValidationStatus
+import com.emanuelgalvao.buscacep.status.CepErrorStatus
+import com.emanuelgalvao.buscacep.status.CepValidationStatus
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -59,12 +59,12 @@ internal class CepManagerTest {
         val cep = "01001000"
 
         whenever(cepRepository.searchCep(cep))
-            .thenReturn(CepCallback.Error(ErrorStatus.SERVER_ERROR))
+            .thenReturn(CepCallback.Error(CepErrorStatus.SERVER_ERROR))
 
         val callback = cepManager.getCepData(cep)
-        val errorStatus = (callback as? CepCallback.Error)?.errorStatus
+        val errorStatus = (callback as? CepCallback.Error)?.cepErrorStatus
 
-        Assert.assertTrue(errorStatus == ErrorStatus.SERVER_ERROR)
+        Assert.assertTrue(errorStatus == CepErrorStatus.SERVER_ERROR)
     }
 
     @Test
@@ -73,12 +73,12 @@ internal class CepManagerTest {
         val cep = "99999999"
 
         whenever(cepRepository.searchCep(cep))
-            .thenReturn(CepCallback.Error(ErrorStatus.INVALID_CEP))
+            .thenReturn(CepCallback.Error(CepErrorStatus.INVALID_CEP))
 
         val callback = cepManager.getCepData(cep)
-        val errorStatus = (callback as? CepCallback.Error)?.errorStatus
+        val errorStatus = (callback as? CepCallback.Error)?.cepErrorStatus
 
-        Assert.assertTrue(errorStatus == ErrorStatus.INVALID_CEP)
+        Assert.assertTrue(errorStatus == CepErrorStatus.INVALID_CEP)
     }
 
     @Test
@@ -86,12 +86,12 @@ internal class CepManagerTest {
 
         val cep = ""
         whenever(cepRepository.searchCep(cep))
-            .thenReturn(CepCallback.Validation(ValidationStatus.CEP_EMPTY))
+            .thenReturn(CepCallback.Validation(CepValidationStatus.CEP_EMPTY))
 
         val callback = cepManager.getCepData(cep)
-        val validationStatus = (callback as? CepCallback.Validation)?.validationStatus
+        val validationStatus = (callback as? CepCallback.Validation)?.cepValidationStatus
 
-        Assert.assertTrue(validationStatus == ValidationStatus.CEP_EMPTY)
+        Assert.assertTrue(validationStatus == CepValidationStatus.CEP_EMPTY)
     }
 
     @Test
@@ -99,12 +99,12 @@ internal class CepManagerTest {
 
         val cep = "O10010A0"
         whenever(cepRepository.searchCep(cep))
-            .thenReturn(CepCallback.Validation(ValidationStatus.CEP_CONTAINS_LETTERS))
+            .thenReturn(CepCallback.Validation(CepValidationStatus.CEP_CONTAINS_LETTERS))
 
         val callback = cepManager.getCepData(cep)
-        val validationStatus = (callback as? CepCallback.Validation)?.validationStatus
+        val validationStatus = (callback as? CepCallback.Validation)?.cepValidationStatus
 
-        Assert.assertTrue(validationStatus == ValidationStatus.CEP_CONTAINS_LETTERS)
+        Assert.assertTrue(validationStatus == CepValidationStatus.CEP_CONTAINS_LETTERS)
     }
 
     @Test
@@ -112,11 +112,11 @@ internal class CepManagerTest {
 
         val cep = "O10010000"
         whenever(cepRepository.searchCep(cep))
-            .thenReturn(CepCallback.Validation(ValidationStatus.CEP_INCORRECT_LENGTH))
+            .thenReturn(CepCallback.Validation(CepValidationStatus.CEP_INCORRECT_LENGTH))
 
         val callback = cepManager.getCepData(cep)
-        val validationStatus = (callback as? CepCallback.Validation)?.validationStatus
+        val validationStatus = (callback as? CepCallback.Validation)?.cepValidationStatus
 
-        Assert.assertTrue(validationStatus == ValidationStatus.CEP_INCORRECT_LENGTH)
+        Assert.assertTrue(validationStatus == CepValidationStatus.CEP_INCORRECT_LENGTH)
     }
 }

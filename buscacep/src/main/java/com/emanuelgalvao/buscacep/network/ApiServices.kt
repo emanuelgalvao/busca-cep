@@ -1,11 +1,11 @@
 package com.emanuelgalvao.buscacep.network
 
 
-class ApiServices {
+internal class ApiServices {
 
     companion object {
 
-        val cepService = RetrofitClient.getClient().create(CepService::class.java)
+        val cepService: CepService = RetrofitClient.getClient().create(CepService::class.java)
 
     }
 }
